@@ -1,6 +1,9 @@
 package tech.buildrun.springsecurity.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import tech.buildrun.springsecurity.controller.dto.LoginRequest;
+
 import java.util.Set;
 import java.util.UUID;
 
@@ -56,5 +59,11 @@ public class User {
 
     public void setUserId(UUID userId) {
         this.userId = userId;
+    }
+
+    public boolean isLoginCorrect(LoginRequest loginRequest, BCryptPasswordEncoder passwordEncoder) {
+
+
+        return false;
     }
 }

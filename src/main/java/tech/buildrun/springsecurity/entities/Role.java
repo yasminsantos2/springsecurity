@@ -11,48 +11,31 @@ public class Role {
     @Column(name = "role_id")
     private Long roleId;
 
+    @Column(unique = true, nullable = false)
     private String name;
 
-    public String getName() {
-        return name;
-    }
+    public Role() {}
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
+    public Role(Long roleId) {
         this.roleId = roleId;
     }
 
+    public Role(String name) {
+        this.name = name;
+    }
 
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-
+    public Long getRoleId() { return roleId; }
+    public void setRoleId(Long roleId) { this.roleId = roleId; }
 
     public enum Values {
-
         ADMIN(1L),
         BASIC(2L);
 
-        long roleId;
-
-        public long getRoleId() {
-            return roleId;
-        }
-
-        public void setRoleId(long roleId) {
-            this.roleId = roleId;
-        }
-
-        Values(long roleId) {
-            this.roleId = roleId;
-
-        }
+        private final long roleId;
+        Values(long roleId) { this.roleId = roleId; }
+        public long getRoleId() { return roleId; }
     }
-
 }
-
