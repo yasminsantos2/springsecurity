@@ -5,9 +5,17 @@ meta {
 }
 
 post {
-  url: 
-  body: none
-  auth: inherit
+  url: http://localhost:8081/login
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+      "username": "admin",
+      "password": "123"
+  }
+  
 }
 
 settings {
