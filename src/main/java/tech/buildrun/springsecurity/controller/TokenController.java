@@ -37,7 +37,7 @@ public class TokenController {
 
         var user = userRepository.findByUsername(loginRequest.username());
 
-      
+
 
         var now = Instant.now();
         var expiresIn = 300L;
