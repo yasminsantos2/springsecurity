@@ -38,7 +38,7 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<Void> newUser(@RequestBody CreateUserDto dto) {
 
-        var basicRole = roleRepository.findByName("admin");
+        var basicRole = roleRepository.findByName(Role.Values.basic.name());
 
         var userFromDb = userRepository.findByUsername(dto.username());
         if (userFromDb.isPresent()) {
@@ -56,9 +56,9 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    @PreAuthorize("hasAuthority('SCOPE_admin')")
     public ResponseEntity<List<User>> listUsers() {
         var users = userRepository.findAll();
-        return ResponseEntity.ok(users);
+       return ResponseEntity.ok(users);
     }
 }
