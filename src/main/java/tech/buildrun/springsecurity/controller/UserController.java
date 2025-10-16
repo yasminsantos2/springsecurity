@@ -56,9 +56,9 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('SCOPE_admin')")
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public ResponseEntity<List<User>> listUsers() {
         var users = userRepository.findAll();
-       return ResponseEntity.ok(users);
+        return ResponseEntity.ok(users);
     }
 }
