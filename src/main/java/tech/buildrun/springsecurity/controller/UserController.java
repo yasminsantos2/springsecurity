@@ -56,9 +56,13 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
-    public ResponseEntity<List<User>> listUsers() {
-        var users = userRepository.findAll();
-        return ResponseEntity.ok(users);
+    public ResponseEntity<?> listUsers() {
+        try {
+            var users = userRepository.findAll();
+            return ResponseEntity.ok(users);
+        } catch (Exception e) {
+            e.printStackTrace(); // mostra o erro exato no console
+            return ResponseEntity.internalServerError().body("Erro: " + e.getMessage());
+        }
     }
 }
