@@ -1,0 +1,26 @@
+meta {
+  name: Feeddd
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://localhost:8081/tweets
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{accessToken}}
+}
+
+body:json {
+  {
+    "content":"ola mundo bruno"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
