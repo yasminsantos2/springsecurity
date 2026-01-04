@@ -41,12 +41,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                        .anyRequest().authenticated()
-                )
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                        .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
-                )
+                        .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
@@ -55,8 +54,8 @@ public class SecurityConfig {
     // ✅ Este método faz o Spring ler a claim "scope" e transformar em authorities
     private Converter<Jwt, ? extends AbstractAuthenticationToken> jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        grantedAuthoritiesConverter.setAuthorityPrefix("SCOPE_");      // adiciona o prefixo SCOPE_
-        grantedAuthoritiesConverter.setAuthoritiesClaimName("scope");  // lê o campo "scope" do token
+        grantedAuthoritiesConverter.setAuthorityPrefix("SCOPE_"); // adiciona o prefixo SCOPE_
+        grantedAuthoritiesConverter.setAuthoritiesClaimName("scope"); // lê o campo "scope" do token
 
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
